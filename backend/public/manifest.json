@@ -1,0 +1,20 @@
+{
+  "name": "FlyTEC Monitor",
+  "short_name": "FlyTEC",
+  "start_url": "/login.html",
+  "display": "standalone",
+  "background_color": "#103977",
+  "theme_color": "#103977",
+  "icons": [
+    {
+      "src": "/logo_flytec_2_.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo_flytec_2_.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

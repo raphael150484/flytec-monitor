@@ -20,7 +20,6 @@
       min-height: 100vh;
     }
 
-    /* ── App Bar ── */
     .appbar {
       background: #0e3169;
       padding: 10px 16px;
@@ -32,251 +31,129 @@
       top: 0;
       z-index: 10;
     }
-    .appbar-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .logo-flytec {
-      height: 90px;
-      width: auto;
-      object-fit: contain;
-    }
-    .appbar-texts {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .appbar-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #53f544;
-      letter-spacing: 0.4px;
-      line-height: 1.2;
-    }
-    .appbar-sub {
-      font-size: 0.7rem;
-      color: #64748b;
-      margin-top: 2px;
-    }
+    .appbar-left { display: flex; align-items: center; gap: 12px; }
+    .logo-flytec { height: 90px; width: auto; object-fit: contain; }
+    .appbar-texts { display: flex; flex-direction: column; justify-content: center; }
+    .appbar-title { font-size: 1rem; font-weight: 700; color: #53f544; letter-spacing: 0.4px; line-height: 1.2; }
+    .appbar-sub { font-size: 0.7rem; color: #64748b; margin-top: 2px; }
 
-    /* Lado direito */
-    .appbar-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .appbar-right { display: flex; align-items: center; gap: 10px; }
     .status-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 7px #22c55e;
-      animation: pulse 2s infinite;
-      flex-shrink: 0;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: #22c55e; box-shadow: 0 0 7px #22c55e;
+      animation: pulse 2s infinite; flex-shrink: 0;
     }
-    .status-dot.offline {
-      background: #ef4444;
-      box-shadow: 0 0 7px #ef4444;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.35; }
-    }
+    .status-dot.offline { background: #ef4444; box-shadow: 0 0 7px #ef4444; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-    /* Menu do usuário */
     .user-menu { position: relative; }
     .user-btn {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 99px;
-      color: #e2e8f0;
-      font-size: 0.75rem;
-      padding: 5px 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      background: #0f172a; border: 1px solid #334155; border-radius: 99px;
+      color: #e2e8f0; font-size: 0.75rem; padding: 5px 12px;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
     }
     .user-btn:hover { border-color: #38bdf8; }
 
     .user-dropdown {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: calc(100% + 8px);
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      min-width: 190px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      z-index: 100;
-      overflow: hidden;
+      display: none; position: absolute; right: 0; top: calc(100% + 8px);
+      background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+      min-width: 190px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 100; overflow: hidden;
     }
     .user-dropdown.open { display: block; }
-
-    .dropdown-header {
-      padding: 10px 14px;
-      font-size: 0.72rem;
-      color: #64748b;
-      border-bottom: 1px solid #334155;
-    }
+    .dropdown-header { padding: 10px 14px; font-size: 0.72rem; color: #64748b; border-bottom: 1px solid #334155; }
     .dropdown-item {
-      padding: 10px 14px;
-      font-size: 0.82rem;
-      color: #e2e8f0;
-      cursor: pointer;
-      display: block;
-      text-decoration: none;
-      width: 100%;
-      background: none;
-      border: none;
-      text-align: left;
+      padding: 10px 14px; font-size: 0.82rem; color: #e2e8f0; cursor: pointer;
+      display: block; text-decoration: none; width: 100%; background: none; border: none; text-align: left;
     }
     .dropdown-item:hover { background: #0f172a; }
     .dropdown-item.danger { color: #f87171; }
     .dropdown-item.admin-only { color: #38bdf8; }
 
-    /* ── Conteúdo ── */
-    .content {
-      padding: 16px;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-    .update-bar {
-      text-align: center;
-      font-size: 0.72rem;
-      color: #475569;
-      margin-bottom: 14px;
-    }
+    .content { padding: 16px; max-width: 520px; margin: 0 auto; }
+    .update-bar { text-align: center; font-size: 0.72rem; color: #475569; margin-bottom: 14px; }
 
-    /* ── Cards ── */
     .card {
-      background: #1e293b;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 16px;
-      border: 1.5px solid #334155;
-      transition: border-color 0.3s;
+      background: #1e293b; border-radius: 20px; padding: 20px;
+      margin-bottom: 16px; border: 1.5px solid #334155; transition: border-color 0.3s;
     }
     .card.alarme { border-color: #ef4444; background: #1a0f0f; }
     .card.alerta  { border-color: #f59e0b; background: #1a150f; }
 
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-    .device-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #e2e8f0;
-    }
-    .device-guid {
-      font-size: 0.65rem;
-      color: #475569;
-      margin-top: 2px;
-      word-break: break-all;
-    }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .device-name { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; }
+    .device-guid { font-size: 0.65rem; color: #475569; margin-top: 2px; word-break: break-all; }
 
-    .badge {
-      padding: 4px 10px;
-      border-radius: 99px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
+    .badge { padding: 4px 10px; border-radius: 99px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3px; white-space: nowrap; }
     .badge.ok     { background: #052e16; color: #4ade80; border: 1px solid #166534; }
     .badge.alarme { background: #450a0a; color: #f87171; border: 1px solid #7f1d1d; }
     .badge.alerta { background: #451a03; color: #fbbf24; border: 1px solid #78350f; }
 
     .temp-block {
-      text-align: center;
-      padding: 18px 0 14px;
-      border-top: 1px solid #334155;
-      border-bottom: 1px solid #334155;
-      margin-bottom: 16px;
+      text-align: center; padding: 18px 0 14px;
+      border-top: 1px solid #334155; border-bottom: 1px solid #334155; margin-bottom: 16px;
     }
-    .temp-label {
-      font-size: 0.68rem;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-    }
-    .temp-value {
-      font-size: 3.6rem;
-      font-weight: 800;
-      line-height: 1;
-      color: #38bdf8;
-    }
+    .temp-label { font-size: 0.68rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .temp-value { font-size: 3.6rem; font-weight: 800; line-height: 1; color: #38bdf8; }
     .temp-value.alarme { color: #ef4444; }
     .temp-value.alerta { color: #f59e0b; }
 
-    .sensors {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .sensor-item {
-      background: #0f172a;
-      border-radius: 12px;
-      padding: 10px 12px;
-      text-align: center;
-    }
-    .sensor-value {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #7dd3fc;
-    }
-    .sensor-label {
-      font-size: 0.63rem;
-      color: #475569;
-      margin-top: 2px;
-    }
+    .sensors { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .sensor-item { background: #0f172a; border-radius: 12px; padding: 10px 12px; text-align: center; }
+    .sensor-value { font-size: 1.05rem; font-weight: 700; color: #7dd3fc; }
+    .sensor-label { font-size: 0.63rem; color: #475569; margin-top: 2px; }
 
-    .card-footer {
-      font-size: 0.72rem;
-      color: #475569;
-      line-height: 1.9;
-      border-top: 1px solid #1e293b;
-      padding-top: 12px;
-    }
+    .card-footer { font-size: 0.72rem; color: #475569; line-height: 1.9; border-top: 1px solid #1e293b; padding-top: 12px; }
     .card-footer span { display: block; }
 
-    /* Erro e carregando */
+    .btn-historico {
+      display: block; width: 100%; margin-top: 14px; padding: 10px;
+      background: #0f172a; border: 1px solid #334155; border-radius: 12px;
+      color: #38bdf8; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; text-align: center; transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-historico:hover { background: #1e3a5f; border-color: #38bdf8; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7); z-index: 200;
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #1e293b; border: 1px solid #334155; border-radius: 20px;
+      width: 100%; max-width: 500px; max-height: 80vh;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid #334155;
+    }
+    .modal-title { font-size: 0.95rem; font-weight: 700; color: #e2e8f0; }
+    .modal-close { background: none; border: none; color: #64748b; font-size: 1.3rem; cursor: pointer; line-height: 1; }
+    .modal-close:hover { color: #f87171; }
+    .modal-body { overflow-y: auto; padding: 16px 20px; flex: 1; }
+    .modal-loading { text-align: center; color: #475569; padding: 30px 0; font-size: 0.85rem; }
+
+    .hist-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+    .hist-table th { text-align: left; color: #64748b; font-weight: 600; padding: 6px 8px; border-bottom: 1px solid #334155; }
+    .hist-table td { padding: 8px 8px; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+    .hist-table tr:last-child td { border-bottom: none; }
+    .hist-vazio { text-align: center; color: #475569; padding: 30px 0; font-size: 0.85rem; }
+
     #erro {
-      background: #1a0f0f;
-      border: 1px solid #ef4444;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      color: #f87171;
-      font-size: 0.85rem;
-      display: none;
-      margin-top: 10px;
+      background: #1a0f0f; border: 1px solid #ef4444; border-radius: 12px;
+      padding: 16px; text-align: center; color: #f87171; font-size: 0.85rem;
+      display: none; margin-top: 10px;
     }
-    #carregando {
-      text-align: center;
-      color: #475569;
-      margin-top: 60px;
-      font-size: 0.9rem;
-    }
+    #carregando { text-align: center; color: #475569; margin-top: 60px; font-size: 0.9rem; }
     .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #334155;
-      border-top-color: #38bdf8;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
+      width: 36px; height: 36px; border: 3px solid #334155;
+      border-top-color: #38bdf8; border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 12px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Responsivo */
     @media (max-width: 480px) {
       .logo-flytec  { height: 46px; }
       .appbar-title { font-size: 0.88rem; }
@@ -287,7 +164,6 @@
 </head>
 <body>
 
-  <!-- ── App Bar ── -->
   <div class="appbar">
     <div class="appbar-left">
       <img src="logo_flytec_2_.png" class="logo-flytec" alt="FlyTEC" />
@@ -296,10 +172,8 @@
         <div class="appbar-sub" id="appbar-sub">Conectando…</div>
       </div>
     </div>
-
     <div class="appbar-right">
       <div class="status-dot" id="status-dot"></div>
-
       <div class="user-menu" id="user-menu">
         <button class="user-btn" id="user-btn">
           👤 <span id="user-label">...</span>
@@ -309,41 +183,44 @@
           <a class="dropdown-item admin-only" id="link-admin" href="/admin.html" style="display:none">
             ⚙️ Gerenciar usuários
           </a>
-          <a class="dropdown-item" href="/trocar-senha.html">
-            🔑 Trocar senha
-          </a>
-          <button class="dropdown-item danger" id="btn-logout">
-            🚪 Sair
-          </button>
+          <a class="dropdown-item" href="/trocar-senha.html">🔑 Trocar senha</a>
+          <button class="dropdown-item danger" id="btn-logout">🚪 Sair</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ── Conteúdo ── -->
   <div class="content">
     <div class="update-bar" id="update-bar"></div>
-
     <div id="carregando">
       <div class="spinner"></div>
       Buscando dados…
     </div>
-
     <div id="erro">
       Não foi possível buscar os dados.<br/>
       Verifique se o servidor está rodando.
     </div>
-
     <div id="grid"></div>
+  </div>
+
+  <!-- Modal Histórico -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Histórico</div>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <div class="modal-loading">Carregando...</div>
+      </div>
+    </div>
   </div>
 
   <script>
     const INTERVALO = 65000;
-
     const dot = document.getElementById('status-dot');
     const sub = document.getElementById('appbar-sub');
 
-    // ── Funções de token e usuário ──
     function getToken() { return localStorage.getItem('token'); }
     function getUser() {
       try { return JSON.parse(localStorage.getItem('user')); }
@@ -355,7 +232,6 @@
       window.location.href = '/login.html';
     }
 
-    // ── Checa login ANTES de qualquer coisa ──
     const _token = getToken();
     const _user  = getUser();
 
@@ -363,7 +239,11 @@
       irParaLogin();
     } else {
 
-      // Preenche nome e perfil no menu
+      // Calcula se pode ver histórico
+      const _podeVerHistorico = _user.podeVerHistorico === undefined
+        ? (_user.role === 'admin')
+        : _user.podeVerHistorico;
+
       document.getElementById('user-label').textContent = _user.username;
       document.getElementById('dropdown-header').textContent =
         _user.username + ' (' + (_user.role === 'admin' ? 'Admin' : 'Monitor') + ')';
@@ -372,64 +252,105 @@
         document.getElementById('link-admin').style.display = 'block';
       }
 
-      // ── Dropdown ──
       const userBtn      = document.getElementById('user-btn');
       const userDropdown = document.getElementById('user-dropdown');
-
       userBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         userDropdown.classList.toggle('open');
       });
-      document.addEventListener('click', () => {
-        userDropdown.classList.remove('open');
+      document.addEventListener('click', () => { userDropdown.classList.remove('open'); });
+      document.getElementById('btn-logout').addEventListener('click', () => { irParaLogin(); });
+
+      function setOnline() { dot.className = 'status-dot'; sub.textContent = 'Conectado'; }
+      function setOffline(msg) { dot.className = 'status-dot offline'; sub.textContent = msg || 'Sem conexão'; }
+
+      // ── Modal histórico ──
+      const modalOverlay = document.getElementById('modal-overlay');
+      const modalTitle   = document.getElementById('modal-title');
+      const modalBody    = document.getElementById('modal-body');
+
+      document.getElementById('modal-close').addEventListener('click', () => {
+        modalOverlay.classList.remove('open');
+      });
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) modalOverlay.classList.remove('open');
       });
 
-      // ── Logout ──
-      document.getElementById('btn-logout').addEventListener('click', () => {
-        irParaLogin();
-      });
+      async function abrirHistorico(guid, nomeDevice) {
+        modalTitle.textContent = 'Histórico — ' + (nomeDevice || guid);
+        modalBody.innerHTML = '<div class="modal-loading"><div class="spinner" style="margin:0 auto 10px"></div>Carregando histórico…</div>';
+        modalOverlay.classList.add('open');
 
-      // ── Status visual ──
-      function setOnline() {
-        dot.className = 'status-dot';
-        sub.textContent = 'Conectado';
-      }
-      function setOffline(msg) {
-        dot.className = 'status-dot offline';
-        sub.textContent = msg || 'Sem conexão';
+        try {
+          const agora     = Math.floor(Date.now() / 1000);
+          const startTime = agora - (7 * 24 * 60 * 60);
+          const endTime   = agora;
+
+          const resp = await fetch(
+            `/api/historico/${guid}?startTime=${startTime}&endTime=${endTime}`,
+            { headers: { 'Authorization': 'Bearer ' + getToken() } }
+          );
+          const json = await resp.json();
+
+          if (!json.success) {
+            modalBody.innerHTML = `<div class="hist-vazio">Erro: ${json.error || 'Não foi possível carregar.'}</div>`;
+            return;
+          }
+          if (!json.data || json.data.length === 0) {
+            modalBody.innerHTML = '<div class="hist-vazio">Nenhum dado nos últimos 7 dias.</div>';
+            return;
+          }
+
+          let html = `
+            <table class="hist-table">
+              <thead>
+                <tr>
+                  <th>Data/Hora</th>
+                  <th>Temp 1</th>
+                  <th>Umidade</th>
+                  <th>Bateria</th>
+                  <th>Sinal</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          json.data.forEach(item => {
+            html += `
+              <tr>
+                <td>${item.horario || '—'}</td>
+                <td>${item.temperatura1 || '—'}</td>
+                <td>${item.umidade1 || '—'}</td>
+                <td>${item.bateria ? item.bateria + '%' : '—'}</td>
+                <td>${item.sinal ? item.sinal + '%' : '—'}</td>
+              </tr>
+            `;
+          });
+          html += '</tbody></table>';
+          modalBody.innerHTML = html;
+
+        } catch (e) {
+          console.error(e);
+          modalBody.innerHTML = '<div class="hist-vazio">Erro de conexão ao buscar histórico.</div>';
+        }
       }
 
-      // ── Carregar dados ──
+      // ── Carregar dados realtime ──
       async function carregarDados() {
         const token = getToken();
         if (!token) { irParaLogin(); return; }
-
         try {
           const resp = await fetch('/api/realtime', {
             headers: { 'Authorization': 'Bearer ' + token }
           });
-
-          if (resp.status === 401) {
-            irParaLogin();
-            return;
-          }
-
+          if (resp.status === 401) { irParaLogin(); return; }
           const json = await resp.json();
-
-          if (!resp.ok || !json.success) {
-            throw new Error(json.error || ('HTTP ' + resp.status));
-          }
-
+          if (!resp.ok || !json.success) throw new Error(json.error || ('HTTP ' + resp.status));
           setOnline();
           document.getElementById('carregando').style.display = 'none';
           document.getElementById('erro').style.display = 'none';
-
           const agora = new Date().toLocaleTimeString('pt-BR');
-          document.getElementById('update-bar').textContent =
-            `Última atualização: ${agora}`;
-
+          document.getElementById('update-bar').textContent = `Última atualização: ${agora}`;
           renderizar(json.data);
-
         } catch (e) {
           console.error('Erro ao carregar dados:', e);
           setOffline('Erro de conexão');
@@ -455,9 +376,7 @@
           const classeTemp  = emAlarme ? 'alarme' : emAlerta ? 'alerta' : '';
           const classeBadge = emAlarme ? 'alarme' : emAlerta ? 'alerta' : 'ok';
           const textoBadge  = emAlarme ? 'ALARME'  : emAlerta ? 'ALERTA'  : 'Normal';
-
-          const temp = dev.temperatura1 || dev.temperatura2
-                    || dev.temperatura3 || dev.temperatura4 || '—';
+          const temp = dev.temperatura1 || dev.temperatura2 || dev.temperatura3 || dev.temperatura4 || '—';
 
           let sensoresHTML = '';
           if (dev.temperatura2) sensoresHTML += sensor(dev.temperatura2, 'Temp 2');
@@ -484,8 +403,18 @@
               ${dev.endereco ? `<span>📍 ${dev.endereco}</span>` : ''}
               <span>🕐 Última leitura: ${dev.ultimaLeitura || '—'}</span>
             </div>
+            ${_podeVerHistorico ? `
+            <button class="btn-historico" data-guid="${dev.deviceGuid}" data-nome="${dev.deviceName || 'Equipamento'}">
+              📊 Ver histórico
+            </button>` : ''}
           `;
           grid.appendChild(card);
+        });
+
+        document.querySelectorAll('.btn-historico').forEach(btn => {
+          btn.addEventListener('click', () => {
+            abrirHistorico(btn.dataset.guid, btn.dataset.nome);
+          });
         });
       }
 
@@ -497,7 +426,6 @@
           </div>`;
       }
 
-      // ── Inicia ──
       carregarDados();
       setInterval(carregarDados, INTERVALO);
     }

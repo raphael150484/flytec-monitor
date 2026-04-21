@@ -171,11 +171,9 @@
           throw new Error(data.error || 'Falha ao fazer login');
         }
 
-        // guarda o token no navegador
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        // redireciona para o painel
         window.location.href = '/';
       } catch (e) {
         err.textContent = e.message;

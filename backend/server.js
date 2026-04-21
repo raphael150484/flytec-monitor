@@ -27,7 +27,6 @@ const {
 
 const JWT_SECRET_KEY = JWT_SECRET || 'chave-secreta-flytec-trocar-no-env';
 
-// Lista de todos os aparelhos disponíveis
 const TODOS_DISPOSITIVOS = [
   { guid: '80053908237226281272', nome: 'Equipamento 1' },
   { guid: '80544818780251830930', nome: 'Equipamento 2' }
@@ -63,7 +62,8 @@ function garantirAdminInicial() {
       username: 'admin',
       passwordHash: senhaHash,
       role: 'admin',
-      dispositivos: TODOS_DISPOSITIVOS.map(d => d.guid) // admin vê tudo
+      dispositivos: TODOS_DISPOSITIVOS.map(d => d.guid),
+      podeVerHistorico: true
     });
     salvarUsuarios(usuarios);
     console.log('Admin padrão criado: admin / admin123');
@@ -110,7 +110,12 @@ async function getElitechToken() {
   console.log('Obtendo token Elitech...');
   const { data } = await axios.post(
     `${BASE_URL}/api/data-api/elitechAccess/getToken`,
-    { keyId: ELITECH_KEY_ID, keySecret: ELITECH_KEY_SECRET, userName: ELITECH_USER, password: ELITECH_PASS }
+    {
+      keyId: ELITECH_KEY_ID,
+      keySecret: ELITECH_KEY_SECRET,
+      userName: ELITECH_USER,
+      password: ELITECH_PASS
+    }
   );
   if (String(data.code) !== '0') throw new Error(`Erro token Elitech: ${data.msg || data.message}`);
   accessToken = data.data;
@@ -159,7 +164,6 @@ function formatarDispositivo(device) {
 // ROTAS DE AUTENTICAÇÃO
 // ═════════════════════════════════════════
 
-// Login
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -178,175 +182,161 @@ app.post('/api/login', (req, res) => {
       id: usuario.id,
       username: usuario.username,
       role: usuario.role,
-      dispositivos: usuario.dispositivos || []
+      dispositivos: usuario.dispositivos || [],
+      podeVerHistorico: usuario.podeVerHistorico === undefined
+        ? (usuario.role === 'admin')
+        : usuario.podeVerHistorico
     }
   });
 });
 
-// Listar dispositivos disponíveis (para o admin usar no cadastro)
 app.get('/api/dispositivos-disponiveis', autenticarToken, apenasAdmin, (req, res) => {
   res.json({ success: true, data: TODOS_DISPOSITIVOS });
 });
 
-// Listar usuários (admin)
 app.get('/api/usuarios', autenticarToken, apenasAdmin, (req, res) => {
   const lista = carregarUsuarios().map(u => ({
     id: u.id,
     username: u.username,
     role: u.role,
-    dispositivos: u.dispositivos || []
+    dispositivos: u.dispositivos || [],
+    podeVerHistorico: u.podeVerHistorico === undefined
+      ? (u.role === 'admin')
+      : u.podeVerHistorico
   }));
   res.json({ success: true, data: lista });
 });
 
-// Cadastrar usuário (admin)
 app.post('/api/usuarios', autenticarToken, apenasAdmin, (req, res) => {
   const { username, password, role, dispositivos } = req.body;
-
   if (!username || !password) {
     return res.status(400).json({ success: false, error: 'Usuário e senha são obrigatórios' });
   }
   if (password.length < 6) {
     return res.status(400).json({ success: false, error: 'Senha precisa ter pelo menos 6 caracteres' });
   }
-
   const usuarios = carregarUsuarios();
   if (usuarios.find(u => u.username === username)) {
     return res.status(400).json({ success: false, error: 'Usuário já existe' });
   }
-
   const novoId    = usuarios.length ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
   const senhaHash = bcrypt.hashSync(password, 10);
-
-  // Se for admin, libera tudo automaticamente
   const dispositivosLiberados = role === 'admin'
     ? TODOS_DISPOSITIVOS.map(d => d.guid)
     : (Array.isArray(dispositivos) ? dispositivos : []);
-
   const novo = {
     id: novoId,
     username,
     passwordHash: senhaHash,
     role: role === 'admin' ? 'admin' : 'monitor',
-    dispositivos: dispositivosLiberados
+    dispositivos: dispositivosLiberados,
+    podeVerHistorico: role === 'admin' ? true : false
   };
-
   usuarios.push(novo);
   salvarUsuarios(usuarios);
-
-  console.log(`Usuário "${username}" (${novo.role}) cadastrado. Dispositivos: ${dispositivosLiberados}`);
-  res.json({ success: true, user: { id: novo.id, username: novo.username, role: novo.role, dispositivos: novo.dispositivos } });
+  console.log(`Usuário "${username}" (${novo.role}) cadastrado.`);
+  res.json({
+    success: true,
+    user: {
+      id: novo.id,
+      username: novo.username,
+      role: novo.role,
+      dispositivos: novo.dispositivos,
+      podeVerHistorico: novo.podeVerHistorico
+    }
+  });
 });
 
-// Editar permissões de dispositivos de um usuário (admin)
 app.put('/api/usuarios/:id/dispositivos', autenticarToken, apenasAdmin, (req, res) => {
   const id = Number(req.params.id);
   const { dispositivos } = req.body;
-
   if (!Array.isArray(dispositivos)) {
     return res.status(400).json({ success: false, error: 'Lista de dispositivos inválida' });
   }
-
   const usuarios = carregarUsuarios();
   const usuario  = usuarios.find(u => u.id === id);
-
-  if (!usuario) {
-    return res.status(404).json({ success: false, error: 'Usuário não encontrado' });
-  }
-
+  if (!usuario) return res.status(404).json({ success: false, error: 'Usuário não encontrado' });
   usuario.dispositivos = dispositivos;
   salvarUsuarios(usuarios);
-
-  console.log(`Dispositivos de "${usuario.username}" atualizados: ${dispositivos}`);
   res.json({ success: true, message: 'Permissões atualizadas com sucesso' });
 });
 
-// Remover usuário (admin)
+// Editar permissão de histórico (admin)
+app.put('/api/usuarios/:id/historico', autenticarToken, apenasAdmin, (req, res) => {
+  const id = Number(req.params.id);
+  const { podeVerHistorico } = req.body;
+  const usuarios = carregarUsuarios();
+  const usuario  = usuarios.find(u => u.id === id);
+  if (!usuario) {
+    return res.status(404).json({ success: false, error: 'Usuário não encontrado' });
+  }
+  usuario.podeVerHistorico = !!podeVerHistorico;
+  salvarUsuarios(usuarios);
+  console.log(`Permissão de histórico de "${usuario.username}" atualizada para: ${usuario.podeVerHistorico}`);
+  res.json({ success: true, message: 'Permissão de histórico atualizada com sucesso' });
+});
+
 app.delete('/api/usuarios/:id', autenticarToken, apenasAdmin, (req, res) => {
   const id = Number(req.params.id);
   let usuarios = carregarUsuarios();
   const alvo   = usuarios.find(u => u.id === id);
-
   if (!alvo) return res.status(404).json({ success: false, error: 'Usuário não encontrado' });
   if (alvo.username === req.user.username) {
     return res.status(400).json({ success: false, error: 'Você não pode remover a si mesmo' });
   }
-
   usuarios = usuarios.filter(u => u.id !== id);
   salvarUsuarios(usuarios);
-
-  console.log(`Usuário "${alvo.username}" removido por ${req.user.username}`);
   res.json({ success: true, message: 'Usuário removido com sucesso' });
 });
 
-// Trocar senha (qualquer usuário logado)
 app.post('/api/trocar-senha', autenticarToken, (req, res) => {
   const { senhaAtual, novaSenha } = req.body;
-
   if (!senhaAtual || !novaSenha) {
     return res.status(400).json({ success: false, error: 'Preencha todos os campos' });
   }
   if (novaSenha.length < 6) {
     return res.status(400).json({ success: false, error: 'Nova senha precisa ter pelo menos 6 caracteres' });
   }
-
   const usuarios = carregarUsuarios();
   const usuario  = usuarios.find(u => u.username === req.user.username);
-
   if (!usuario) return res.status(404).json({ success: false, error: 'Usuário não encontrado' });
   if (!bcrypt.compareSync(senhaAtual, usuario.passwordHash)) {
     return res.status(401).json({ success: false, error: 'Senha atual incorreta' });
   }
-
   usuario.passwordHash = bcrypt.hashSync(novaSenha, 10);
   salvarUsuarios(usuarios);
-
-  console.log(`Senha alterada para "${req.user.username}"`);
   res.json({ success: true, message: 'Senha alterada com sucesso' });
 });
 
 // ═════════════════════════════════════════
-// ROTAS ELITECH (protegidas)
+// ROTAS ELITECH
 // ═════════════════════════════════════════
 
 app.get('/api/status', autenticarToken, (req, res) => {
   res.json({ status: 'ok', user: req.user });
 });
 
-// Tempo real — filtra por dispositivos liberados do usuário
 app.get('/api/realtime', autenticarToken, async (req, res) => {
   try {
     const usuarios = carregarUsuarios();
     const usuario  = usuarios.find(u => u.username === req.user.username);
-
-    // Admin vê tudo, monitor só os liberados
     let guidsPermitidos;
     if (req.user.role === 'admin') {
       guidsPermitidos = TODOS_DISPOSITIVOS.map(d => d.guid);
     } else {
       guidsPermitidos = usuario?.dispositivos || [];
     }
-
     if (!guidsPermitidos.length) {
       return res.json({ success: true, total: 0, data: [] });
     }
-
-    console.log(`Buscando tempo real para: ${guidsPermitidos} (usuário: ${req.user.username})`);
-
     const realtimeResp = await callElitech(
       '/api/data-api/elitechAccess/getRealTimeData',
       { keyId: ELITECH_KEY_ID, keySecret: ELITECH_KEY_SECRET, deviceGuids: guidsPermitidos }
     );
-
-    console.log('Resposta getRealTimeData:', JSON.stringify(realtimeResp));
-
     if (String(realtimeResp.code) === '5110') {
       return res.status(429).json({ success: false, error: 'Limite de chamadas atingido. Aguarde 1 minuto.' });
     }
-
-    // Algum dispositivo sem API — tenta um por um
     if (String(realtimeResp.code) === '5109') {
-      console.log('Código 5109: tentando dispositivos um por um...');
       const resultados = [];
       for (const guid of guidsPermitidos) {
         try {
@@ -363,63 +353,62 @@ app.get('/api/realtime', autenticarToken, async (req, res) => {
       }
       return res.json({ success: true, total: resultados.length, data: resultados });
     }
-
     if (String(realtimeResp.code) !== '0') {
       return res.status(500).json({
         success: false,
         error: `Erro Elitech (código ${realtimeResp.code}): ${realtimeResp.msg || realtimeResp.message || 'sem mensagem'}`
       });
     }
-
     if (!Array.isArray(realtimeResp.data)) {
       return res.status(500).json({ success: false, error: 'Formato de resposta inesperado.' });
     }
-
     const resultado = realtimeResp.data.map(d => formatarDispositivo(d));
     res.json({ success: true, total: resultado.length, data: resultado });
-
   } catch (err) {
     console.error('Erro em /api/realtime:', err.message);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
-// Tempo real — GUID específico
 app.get('/api/realtime/:guid', autenticarToken, async (req, res) => {
   try {
     const guid     = req.params.guid;
     const usuarios = carregarUsuarios();
     const usuario  = usuarios.find(u => u.username === req.user.username);
-
-    // Checa permissão
     if (req.user.role !== 'admin' && !(usuario?.dispositivos || []).includes(guid)) {
       return res.status(403).json({ success: false, error: 'Sem permissão para este dispositivo' });
     }
-
     const realtimeResp = await callElitech(
       '/api/data-api/elitechAccess/getRealTimeData',
       { keyId: ELITECH_KEY_ID, keySecret: ELITECH_KEY_SECRET, deviceGuids: [guid] }
     );
-
     if (String(realtimeResp.code) !== '0') {
       return res.status(500).json({ success: false, error: `Erro Elitech (${realtimeResp.code})` });
     }
-
     res.json({ success: true, data: realtimeResp.data.map(d => formatarDispositivo(d)) });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
-// Histórico
 app.get('/api/historico/:guid', autenticarToken, async (req, res) => {
   try {
     const { guid } = req.params;
     const usuarios = carregarUsuarios();
     const usuario  = usuarios.find(u => u.username === req.user.username);
 
+    // Checa permissão de dispositivo
     if (req.user.role !== 'admin' && !(usuario?.dispositivos || []).includes(guid)) {
       return res.status(403).json({ success: false, error: 'Sem permissão para este dispositivo' });
+    }
+
+    // Checa permissão de histórico
+    const podeVerHistorico = usuario?.podeVerHistorico === undefined
+      ? (usuario?.role === 'admin')
+      : usuario.podeVerHistorico;
+
+    if (req.user.role !== 'admin' && !podeVerHistorico) {
+      return res.status(403).json({ success: false, error: 'Sem permissão para ver histórico' });
     }
 
     const agora     = Math.floor(Date.now() / 1000);

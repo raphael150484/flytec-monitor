@@ -14,195 +14,102 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      min-height: 100vh;
+      background: #0f172a; color: #e2e8f0; min-height: 100vh;
     }
-
     .appbar {
-      background: #1e293b;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #334155;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      background: #1e293b; padding: 10px 16px; display: flex;
+      align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 10;
     }
     .appbar-left { display: flex; align-items: center; gap: 12px; }
     .logo-flytec { height: 46px; width: auto; object-fit: contain; }
     .appbar-title { font-size: 1rem; font-weight: 700; color: #38bdf8; }
     .appbar-sub { font-size: 0.7rem; color: #64748b; margin-top: 2px; }
     .back-btn {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 99px;
-      color: #e2e8f0;
-      font-size: 0.78rem;
-      padding: 5px 14px;
-      cursor: pointer;
-      text-decoration: none;
+      background: #0f172a; border: 1px solid #334155; border-radius: 99px;
+      color: #e2e8f0; font-size: 0.78rem; padding: 5px 14px;
+      cursor: pointer; text-decoration: none;
     }
     .back-btn:hover { border-color: #38bdf8; }
 
     .content { padding: 16px; max-width: 540px; margin: 0 auto; }
-
     .section {
-      background: #1e293b;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-      border: 1px solid #334155;
+      background: #1e293b; border-radius: 16px; padding: 20px;
+      margin-bottom: 16px; border: 1px solid #334155;
     }
     .section-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #38bdf8;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #334155;
+      font-size: 0.85rem; font-weight: 700; color: #38bdf8;
+      margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #334155;
     }
 
     .field { margin-bottom: 12px; }
     .label { font-size: 0.75rem; color: #94a3b8; margin-bottom: 5px; }
     .input {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 8px;
-      border: 1px solid #334155;
-      background: #0f172a;
-      color: #e2e8f0;
-      font-size: 0.88rem;
+      width: 100%; padding: 9px 12px; border-radius: 8px;
+      border: 1px solid #334155; background: #0f172a;
+      color: #e2e8f0; font-size: 0.88rem;
     }
     .input:focus { outline: none; border-color: #38bdf8; }
     select.input { cursor: pointer; }
 
-    /* Checkboxes de dispositivos */
-    .devices-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 4px;
-    }
+    .devices-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
     .device-check {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 10px;
-      padding: 10px 14px;
-      cursor: pointer;
-      transition: border-color 0.2s;
+      display: flex; align-items: center; gap: 10px; background: #0f172a;
+      border: 1px solid #334155; border-radius: 10px; padding: 10px 14px;
+      cursor: pointer; transition: border-color 0.2s;
     }
     .device-check:hover { border-color: #38bdf8; }
     .device-check input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      accent-color: #38bdf8;
-      cursor: pointer;
+      width: 16px; height: 16px; accent-color: #38bdf8; cursor: pointer;
     }
     .device-check-label { font-size: 0.85rem; color: #e2e8f0; }
     .device-check-guid { font-size: 0.65rem; color: #475569; margin-top: 2px; }
 
     .btn {
-      width: 100%;
-      padding: 10px;
-      border-radius: 999px;
-      border: none;
+      width: 100%; padding: 10px; border-radius: 999px; border: none;
       background: linear-gradient(135deg, #0ea5e9, #22c55e);
-      color: white;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin-top: 6px;
+      color: white; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-top: 6px;
     }
     .btn:disabled { opacity: 0.5; cursor: default; }
 
     .msg {
-      margin-top: 10px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      text-align: center;
-      display: none;
+      margin-top: 10px; padding: 8px 12px; border-radius: 8px;
+      font-size: 0.8rem; text-align: center; display: none;
     }
     .msg.ok    { background: #052e16; color: #4ade80; border: 1px solid #166534; }
     .msg.error { background: #450a0a; color: #f87171; border: 1px solid #7f1d1d; }
 
-    /* Lista de usuários */
     .user-item {
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 10px;
-      background: #0f172a;
+      border: 1px solid #334155; border-radius: 12px;
+      padding: 14px; margin-bottom: 10px; background: #0f172a;
     }
     .user-item:last-child { margin-bottom: 0; }
     .user-item-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
     }
     .user-item-name { font-size: 0.88rem; font-weight: 600; color: #e2e8f0; }
     .user-item-role { font-size: 0.68rem; color: #64748b; margin-top: 2px; }
-
     .btn-remove {
-      background: #450a0a;
-      border: 1px solid #7f1d1d;
-      color: #f87171;
-      border-radius: 99px;
-      font-size: 0.7rem;
-      padding: 5px 12px;
-      cursor: pointer;
-      white-space: nowrap;
+      background: #450a0a; border: 1px solid #7f1d1d; color: #f87171;
+      border-radius: 99px; font-size: 0.7rem; padding: 5px 12px;
+      cursor: pointer; white-space: nowrap;
     }
     .btn-remove:hover { background: #7f1d1d; }
     .tag-voce {
-      font-size: 0.68rem;
-      color: #475569;
-      border: 1px solid #334155;
-      border-radius: 99px;
-      padding: 3px 10px;
+      font-size: 0.68rem; color: #475569;
+      border: 1px solid #334155; border-radius: 99px; padding: 3px 10px;
     }
-
-    /* Permissões de dispositivos por usuário */
-    .perm-title {
-      font-size: 0.72rem;
-      color: #64748b;
-      margin-bottom: 6px;
-    }
-    .perm-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .perm-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-    }
+    .perm-title { font-size: 0.72rem; color: #64748b; margin-bottom: 6px; }
+    .perm-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+    .perm-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; }
     .perm-item input[type="checkbox"] {
-      accent-color: #38bdf8;
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
+      accent-color: #38bdf8; width: 14px; height: 14px; cursor: pointer;
     }
     .btn-salvar-perm {
-      background: #0f172a;
-      border: 1px solid #38bdf8;
-      color: #38bdf8;
-      border-radius: 99px;
-      font-size: 0.72rem;
-      padding: 5px 14px;
-      cursor: pointer;
+      background: #0f172a; border: 1px solid #38bdf8; color: #38bdf8;
+      border-radius: 99px; font-size: 0.72rem; padding: 5px 14px; cursor: pointer;
     }
     .btn-salvar-perm:hover { background: #38bdf8; color: #0f172a; }
-
     .empty { text-align: center; color: #475569; font-size: 0.82rem; padding: 20px 0; }
   </style>
 </head>
@@ -224,7 +131,6 @@
     <!-- Cadastrar novo usuário -->
     <div class="section">
       <div class="section-title">➕ Cadastrar novo usuário</div>
-
       <div class="field">
         <div class="label">Usuário</div>
         <input id="new-username" class="input" placeholder="ex: joao" autocomplete="off"/>
@@ -240,14 +146,22 @@
           <option value="admin">Admin — pode gerenciar usuários</option>
         </select>
       </div>
-
       <div class="field" id="field-dispositivos">
         <div class="label">Aparelhos que este usuário pode ver</div>
         <div class="devices-grid" id="devices-cadastro">
           <div class="empty">Carregando aparelhos...</div>
         </div>
       </div>
-
+      <div class="field" id="field-historico-cadastro">
+        <div class="label">Permissões extras</div>
+        <label class="device-check">
+          <input type="checkbox" id="new-pode-historico" />
+          <div>
+            <div class="device-check-label">Pode ver histórico</div>
+            <div class="device-check-guid">Libera acesso ao histórico de leituras</div>
+          </div>
+        </label>
+      </div>
       <button class="btn" id="btn-cadastrar">Cadastrar usuário</button>
       <div class="msg" id="msg-cadastrar"></div>
     </div>
@@ -262,7 +176,7 @@
 
   <script>
     function getToken() { return localStorage.getItem('token'); }
-    function getUser()  {
+    function getUser() {
       try { return JSON.parse(localStorage.getItem('user')); } catch(e) { return null; }
     }
     function irParaLogin() {
@@ -271,7 +185,6 @@
       window.location.href = '/login.html';
     }
 
-    // Só admin pode acessar
     (function() {
       const token = getToken();
       const user  = getUser();
@@ -282,7 +195,6 @@
 
     let todosDispositivos = [];
 
-    // ── Carregar lista de aparelhos disponíveis ──
     async function carregarDispositivos() {
       try {
         const resp = await fetch('/api/dispositivos-disponiveis', {
@@ -315,13 +227,12 @@
       });
     }
 
-    // Esconder seleção de aparelhos quando perfil é admin (vê tudo)
     document.getElementById('new-role').addEventListener('change', function() {
-      document.getElementById('field-dispositivos').style.display =
-        this.value === 'admin' ? 'none' : 'block';
+      const isAdmin = this.value === 'admin';
+      document.getElementById('field-dispositivos').style.display       = isAdmin ? 'none' : 'block';
+      document.getElementById('field-historico-cadastro').style.display = isAdmin ? 'none' : 'block';
     });
 
-    // ── Mensagem de feedback ──
     function showMsg(id, tipo, texto) {
       const el = document.getElementById(id);
       el.className = 'msg ' + tipo;
@@ -355,12 +266,16 @@
           const item  = document.createElement('div');
           item.className = 'user-item';
 
-          // Checkboxes de permissão por usuário
+          const podeVerHistorico = u.podeVerHistorico === undefined
+            ? (u.role === 'admin')
+            : u.podeVerHistorico;
+
           const permsHTML = todosDispositivos.map(d => {
             const checked = (u.dispositivos || []).includes(d.guid) ? 'checked' : '';
             return `
               <label class="perm-item">
-                <input type="checkbox" value="${d.guid}" ${checked} ${souEu || u.role === 'admin' ? 'disabled' : ''} />
+                <input type="checkbox" value="${d.guid}" ${checked}
+                  ${souEu || u.role === 'admin' ? 'disabled' : ''} />
                 ${d.nome}
               </label>
             `;
@@ -377,8 +292,20 @@
                 : `<button class="btn-remove" data-id="${u.id}">Remover</button>`
               }
             </div>
+
+            <div class="perm-title">Permissões:</div>
+            <div class="perm-grid" style="margin-bottom:10px;">
+              <label class="perm-item">
+                <input type="checkbox" class="chk-historico" data-id="${u.id}"
+                  ${podeVerHistorico ? 'checked' : ''}
+                  ${souEu || u.role === 'admin' ? 'disabled' : ''} />
+                Pode ver histórico
+              </label>
+            </div>
+
             <div class="perm-title">Aparelhos liberados:</div>
             <div class="perm-grid" id="perm-${u.id}">${permsHTML}</div>
+
             ${!souEu && u.role !== 'admin'
               ? `<button class="btn-salvar-perm" data-id="${u.id}">💾 Salvar permissões</button>`
               : u.role === 'admin'
@@ -400,11 +327,11 @@
           });
         });
 
-        // Eventos de salvar permissões
+        // Eventos de salvar permissões de dispositivos
         list.querySelectorAll('.btn-salvar-perm').forEach(btn => {
           btn.addEventListener('click', async () => {
-            const id   = btn.getAttribute('data-id');
-            const grid = document.getElementById('perm-' + id);
+            const id    = btn.getAttribute('data-id');
+            const grid  = document.getElementById('perm-' + id);
             const guids = Array.from(grid.querySelectorAll('input[type="checkbox"]:checked'))
               .map(cb => cb.value);
             btn.textContent = 'Salvando...';
@@ -412,6 +339,23 @@
             await salvarPermissoes(id, guids);
             btn.textContent = '💾 Salvar permissões';
             btn.disabled = false;
+          });
+        });
+
+        // Eventos de permissão de histórico (salva ao clicar)
+        list.querySelectorAll('.chk-historico').forEach(chk => {
+          chk.addEventListener('change', async () => {
+            const id  = chk.getAttribute('data-id');
+            const val = chk.checked;
+            chk.disabled = true;
+            try {
+              await salvarPermissaoHistorico(id, val);
+            } catch(e) {
+              alert('Erro ao salvar permissão de histórico: ' + e.message);
+              chk.checked = !val;
+            } finally {
+              chk.disabled = false;
+            }
           });
         });
 
@@ -456,17 +400,31 @@
       }
     }
 
+    // ── Salvar permissão de histórico ──
+    async function salvarPermissaoHistorico(id, podeVerHistorico) {
+      const resp = await fetch('/api/usuarios/' + id + '/historico', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + getToken()
+        },
+        body: JSON.stringify({ podeVerHistorico })
+      });
+      const json = await resp.json();
+      if (!json.success) throw new Error(json.error || 'Falha ao salvar permissão de histórico');
+    }
+
     // ── Cadastrar novo usuário ──
     document.getElementById('btn-cadastrar').addEventListener('click', async () => {
       const username = document.getElementById('new-username').value.trim();
       const password = document.getElementById('new-password').value.trim();
       const role     = document.getElementById('new-role').value;
+      const podeVerHistorico = document.getElementById('new-pode-historico').checked;
 
       if (!username) { showMsg('msg-cadastrar', 'error', 'Preencha o nome de usuário.'); return; }
       if (!password) { showMsg('msg-cadastrar', 'error', 'Preencha a senha.'); return; }
       if (password.length < 6) { showMsg('msg-cadastrar', 'error', 'A senha precisa ter pelo menos 6 caracteres.'); return; }
 
-      // Pega dispositivos marcados
       const dispositivos = Array.from(
         document.querySelectorAll('#devices-cadastro input[type="checkbox"]:checked')
       ).map(cb => cb.value);
@@ -487,7 +445,7 @@
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + getToken()
           },
-          body: JSON.stringify({ username, password, role, dispositivos })
+          body: JSON.stringify({ username, password, role, dispositivos, podeVerHistorico })
         });
         if (resp.status === 401) { irParaLogin(); return; }
         const json = await resp.json();
@@ -497,7 +455,9 @@
         document.getElementById('new-username').value = '';
         document.getElementById('new-password').value = '';
         document.getElementById('new-role').value = 'monitor';
-        document.getElementById('field-dispositivos').style.display = 'block';
+        document.getElementById('new-pode-historico').checked = false;
+        document.getElementById('field-dispositivos').style.display       = 'block';
+        document.getElementById('field-historico-cadastro').style.display = 'block';
         renderCheckboxesCadastro();
         carregarUsuarios();
       } catch(e) {

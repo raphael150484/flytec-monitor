@@ -12,7 +12,8 @@
     "role": "monitor",
     "dispositivos": [
       "80053908237226281272"
-    ]
+    ],
+    "podeVerHistorico": true
   },
   {
     "id": 3,
