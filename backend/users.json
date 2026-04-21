@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "passwordHash": "$2b$10$zi1hFVIs7wBohVsU4vcTQOf3hCgBiPbdGAQ2MLdGmey3E.A1W3a3C",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "username": "teste",
+    "passwordHash": "$2b$10$9yK.Y6Z11JJ105Bl88ujZ.MCp6uJoH3TCk5m/AhsOGNrcLKRrVQDi",
+    "role": "monitor",
+    "dispositivos": [
+      "80053908237226281272"
+    ]
+  },
+  {
+    "id": 3,
+    "username": "teste1",
+    "passwordHash": "$2b$10$JyGdZZ1/30XFkf5A2KVySOQdy60TovWDmLR4vi8Ej0QrUjCOr.fue",
+    "role": "monitor",
+    "dispositivos": [
+      "80544818780251830930"
+    ]
+  },
+  {
+    "id": 4,
+    "username": "teste2",
+    "passwordHash": "$2b$10$Ofe/U9PG574cf4qVS8I5SuDdvjXvgxV4IgE6xQzjMt6BIaIpiVaMS",
+    "role": "admin"
+  }
+]

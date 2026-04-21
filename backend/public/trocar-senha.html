@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Trocar Senha - FlyTEC</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .appbar {
+      background: #1e293b;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+    .appbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-flytec {
+      height: 46px;
+      width: auto;
+      object-fit: contain;
+    }
+    .appbar-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .appbar-sub {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .back-btn {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 99px;
+      color: #e2e8f0;
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .back-btn:hover { border-color: #38bdf8; }
+
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 18px;
+      padding: 24px 20px;
+      width: 100%;
+      max-width: 380px;
+      border: 1px solid #334155;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .field { margin-bottom: 14px; }
+    .label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-bottom: 5px;
+    }
+    .input {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+    }
+    .input:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn:disabled { opacity: 0.5; cursor: default; }
+
+    .msg {
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      text-align: center;
+      display: none;
+    }
+    .msg.ok    { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+    .msg.error { background: #450a0a; color: #f87171; border: 1px solid #7f1d1d; }
+  </style>
+</head>
+<body>
+
+  <div class="appbar">
+    <div class="appbar-left">
+      <img src="logo_flytec_2_.png" class="logo-flytec" alt="FlyTEC" />
+      <div>
+        <div class="appbar-title">Trocar Senha</div>
+        <div class="appbar-sub" id="appbar-sub">...</div>
+      </div>
+    </div>
+    <a class="back-btn" href="/">← Voltar</a>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <div class="card-title">🔑 Alterar sua senha</div>
+
+      <div class="field">
+        <div class="label">Senha atual</div>
+        <input id="senha-atual" class="input" type="password" placeholder="Digite sua senha atual"/>
+      </div>
+      <div class="field">
+        <div class="label">Nova senha</div>
+        <input id="nova-senha" class="input" type="password" placeholder="Mínimo 6 caracteres"/>
+      </div>
+      <div class="field">
+        <div class="label">Confirmar nova senha</div>
+        <input id="confirmar-senha" class="input" type="password" placeholder="Repita a nova senha"/>
+      </div>
+
+      <button class="btn" id="btn-trocar">Salvar nova senha</button>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+  <script>
+    function getToken() { return localStorage.getItem('token'); }
+    function getUser()  {
+      try { return JSON.parse(localStorage.getItem('user')); } catch(e) { return null; }
+    }
+    function irParaLogin() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login.html';
+    }
+
+    (function() {
+      const token = getToken();
+      const user  = getUser();
+      if (!token || !user) {
+        irParaLogin();
+        return;
+      }
+      document.getElementById('appbar-sub').textContent = 'Usuário: ' + user.username;
+    })();
+
+    function showMsg(tipo, texto) {
+      const el = document.getElementById('msg');
+      el.className = 'msg ' + tipo;
+      el.textContent = texto;
+      el.style.display = 'block';
+      if (tipo === 'ok') {
+        setTimeout(() => { window.location.href = '/'; }, 2000);
+      }
+    }
+
+    document.getElementById('btn-trocar').addEventListener('click', async () => {
+      const senhaAtual     = document.getElementById('senha-atual').value.trim();
+      const novaSenha      = document.getElementById('nova-senha').value.trim();
+      const confirmarSenha = document.getElementById('confirmar-senha').value.trim();
+
+      if (!senhaAtual || !novaSenha || !confirmarSenha) {
+        showMsg('error', 'Preencha todos os campos.');
+        return;
+      }
+      if (novaSenha.length < 6) {
+        showMsg('error', 'A nova senha precisa ter pelo menos 6 caracteres.');
+        return;
+      }
+      if (novaSenha !== confirmarSenha) {
+        showMsg('error', 'As senhas não coincidem.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-trocar');
+      btn.disabled = true;
+      btn.textContent = 'Salvando...';
+
+      try {
+        const resp = await fetch('/api/trocar-senha', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken()
+          },
+          body: JSON.stringify({ senhaAtual, novaSenha })
+        });
+        const json = await resp.json();
+        if (!json.success) throw new Error(json.error);
+
+        showMsg('ok', 'Senha alterada com sucesso! Redirecionando...');
+      } catch(e) {
+        showMsg('error', e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Salvar nova senha';
+      }
+    });
+  </script>
+</body>
+</html>
